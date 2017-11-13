@@ -30,6 +30,10 @@ public class QQUtils {
         if(mTencent == null){
             mTencent = Tencent.createInstance(AppConstants.QQ_APPID, activity.getApplicationContext());
         }
+        if(!mTencent.isSupportSSOLogin(activity)){
+            listener.onError("请先安装QQ");
+            return;
+        }
         if (!mTencent.isSessionValid()){
             if(mLoginListener == null){
                 mLoginListener = new LoginQQListener(listener);
@@ -42,6 +46,10 @@ public class QQUtils {
         listener.onStart();
         if(mTencent == null){
             mTencent = Tencent.createInstance(AppConstants.QQ_APPID, activity.getApplicationContext());
+        }
+        if(!mTencent.isSupportSSOLogin(activity)){
+            listener.onError("请先安装QQ");
+            return;
         }
         if(!mTencent.isSessionValid()){
             final Bundle params = new Bundle();
